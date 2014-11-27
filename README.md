@@ -9,7 +9,7 @@ To run:
 1. download love2d and follow the instructions for installation
 2. clone this repo
 3. cd to the directory above this repo
-4. love circleSynth
+4. run this command: love circleSynth
 
 Start clicking around! Bright circles will appear and start dancing around,
 like raindrops on a neon pool.
