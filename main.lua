@@ -8,7 +8,7 @@ function love.load()
     sine:setLooping(false)
     chaos = false -- incoming arg: is it a circle, or crazy random poly shapes?
     lineWidth = 1 -- incoming line width arg
-    color = random -- incoming color arg
+    color = "random" -- incoming color arg
 end
 
 -- grow circles, or "pop" them, IE take them back down to starting radius
@@ -28,7 +28,7 @@ end
 function love.draw()
     love.graphics.setLineWidth(lineWidth)
     for index,shape in pairs(shapes) do
-        love.graphics.setColor(math.random(0,255),math.random(0,255),math.random(0,255),255)
+        chooseColor()
         shapeX, shapeY = shape:getPoint()
         if chaos then
             love.graphics.circle("line", shapeX, shapeY, shape:getRadius(), math.random(4, 20))
@@ -37,6 +37,22 @@ function love.draw()
         end
     end
 end
+
+function chooseColor()
+    if color == "red" then
+        love.graphics.setColor(255,0,0,255)
+    elseif color == "green" then
+        love.graphics.setColor(0,255,0,255)
+    elseif color == "blue" then
+        love.graphics.setColor(0,0,255,255)
+    elseif color == "random" then
+        love.graphics.setColor(math.random(0,255),math.random(0,255),math.random(0,255),255)
+    else
+        print("color was unrecognized. exiting.")
+        love.event.quit()
+    end
+end
+
 
 -- make a new circle on mouse presses
 function love.mousepressed(x, y, button)
@@ -67,7 +83,18 @@ end
 
 -- I'm sure there will be more keys eventually, but for now, just quitting.
 function love.keypressed(key, isrepeat)
+    print("key pressed was ", key)
     if key == "escape" then
         love.event.quit()
+    elseif key == "c" then
+        chaos = not chaos
+    elseif key == "r" then
+        color = "red"
+    elseif key == "g" then
+        color = "green"
+    elseif key == "b" then
+        color = "blue"
+    elseif key == "a" then
+        color = "random"
     end
 end
