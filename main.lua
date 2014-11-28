@@ -6,7 +6,7 @@ function love.load()
     love.keyboard.setKeyRepeat(true)
     var = 10
     rate = 3
-    sine = love.audio.newSource("sine.wav", "static")
+    sine = love.audio.newSource("sineShort.wav", "static")
     sine:setLooping(false)
 end
 
@@ -40,6 +40,14 @@ function love.mousepressed(x, y, button)
     print(height)
     print(mod)
     sine2:setPitch(1 + (mod * (.08 + (1/300))))
+
+    local width = love.window.getWidth()
+    local modw = x / height
+    print(y)
+    print(width)
+    print(modw)
+    sine2:setVolume(modw)
+    
     print(sine2:getPitch())
     sine2:setLooping(false)
     table.insert(shapes, newCircle)
