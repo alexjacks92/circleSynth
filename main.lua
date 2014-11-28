@@ -16,7 +16,7 @@ function love.update(dt)
             shape:setRadius(shape:getRadius() + rate)
          else
             shape:setRadius(50)
-            sounds[index]:seek(9, "seconds")
+  --          sounds[index]:seek(9, "seconds")
             love.audio.play(sounds[index])
          end
     end
@@ -33,13 +33,24 @@ end
 function love.mousepressed(x, y, button)
     newCircle = love.physics.newCircleShape(x, y, radius)
     sine2 = sine:clone()
-    sine2:setPitch(math.random() + math.random())
+    
+    local height = love.window.getHeight()
+    local mod = math.floor(y / (height / 12))
+    print(x)
+    print(height)
+    print(mod)
+    sine2:setPitch(1 + (mod * (.08 + (1/300))))
     print(sine2:getPitch())
     sine2:setLooping(false)
     table.insert(shapes, newCircle)
     table.insert(sounds, sine2)
-    print(#shapes)
-    print(#sounds)
+    love.audio.play(sine2)
+    --print(#shapes)
+   -- print(#sounds)
 end
 
-
+function love.keypressed(key, isrepeat)
+    if key == "escape" then
+        love.event.quit()
+    end
+end
