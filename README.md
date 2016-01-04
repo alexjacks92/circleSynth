@@ -21,4 +21,6 @@ If on Windows:
 
 Start clicking around! Bright circles will appear and start dancing around,
 like raindrops on a neon pool.
-
+A couple fun key commands are included too. You can change the color of the circles using "r" for red, "b" for blue, "g" for green, or "a" to randomly cycle through colors. 
+Pressing "c" enters what I've called "chaos mode", where random regular polygons are created instead of circles.
+To exit, press escape.
