@@ -12,7 +12,7 @@ function love.load()
 end
 
 -- grow circles, or "pop" them, IE take them back down to starting radius
--- when a pop occurs, retrigger the sound (will make more sense when duration works)
+-- when a pop occurs, retrigger the sound
 function love.update(dt)
     for index,shape in pairs(shapes) do
         if (shape:getRadius() < 550) then
@@ -25,14 +25,15 @@ function love.update(dt)
     end
 end
 
+-- draw all of the active tones' associated shapes
 function love.draw()
     love.graphics.setLineWidth(lineWidth)
     for index,shape in pairs(shapes) do
         chooseColor()
         shapeX, shapeY = shape:getPoint()
-        if chaos then
+        if chaos then -- chaos: make random polygons instead of simple circles
             love.graphics.circle("line", shapeX, shapeY, shape:getRadius(), math.random(4, 20))
-        else
+        else -- just circles
             love.graphics.circle("line", shapeX, shapeY, shape:getRadius())
         end
     end
@@ -59,7 +60,7 @@ function love.mousepressed(x, y, button)
     newCircle = love.physics.newCircleShape(x, y, radius)
     sine2 = sine:clone()
     -- y coordinate dictates pitch
-    local height = love.window.getHeight()
+    local height = love.graphics.getHeight()
     local mod = math.floor(y / (height / 12))
     print(x)
     print(height)
@@ -67,7 +68,7 @@ function love.mousepressed(x, y, button)
     sine2:setPitch(1 + (mod * (.08 + (1/300))))
     
     -- x coordinate dictates volume
-    local width = love.window.getWidth()
+    local width = love.graphics.getWidth()
     local modw = x / height
     print(y)
     print(width)
@@ -81,7 +82,7 @@ function love.mousepressed(x, y, button)
     love.audio.play(sine2) -- need to play the sound on the first click
 end
 
--- I'm sure there will be more keys eventually, but for now, just quitting.
+-- handle key presses: change colors, shapes, and quit the game
 function love.keypressed(key, isrepeat)
     print("key pressed was ", key)
     if key == "escape" then
